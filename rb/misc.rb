@@ -16,13 +16,17 @@ def debug(message)
 end
 
 def gfx(name)
-  File.expand_path("gfx/#{name}", File.dirname(__FILE__))
+  File.expand_path("gfx/#{name}.png", File.dirname(__FILE__))
 end
 
 def music(name)
-  File.expand_path("music/#{name}", File.dirname(__FILE__))
+  File.expand_path("music/#{name}.ogg", File.dirname(__FILE__))
 end
 
 def sfx(name)
-  File.expand_path("sfx/#{name}", File.dirname(__FILE__))
+  File.expand_path("sfx/#{name}.ogg", File.dirname(__FILE__))
+end
+
+def map(name)
+  File.expand_path("map/#{name}.map", File.dirname(__FILE__))
 end

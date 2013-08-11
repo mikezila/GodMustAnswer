@@ -1,9 +1,10 @@
 class Block < GameObject
+
   def initialize(game,origin)
     super game
     @origin = origin
     self.tags.push("block")
-    @gfx = Gosu::Image.new($window,gfx("block.png"),false)
+    @gfx = Gosu::Image.new($window,gfx("block"),false)
     self.calc_box
   end
 

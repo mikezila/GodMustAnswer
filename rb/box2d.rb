@@ -1,9 +1,8 @@
 class Box2D
 
-  attr_reader :origin, :height, :width, :name
+  attr_reader :origin, :height, :width
 
-  def initialize(vec2, height, width, name="Unnamed")
-    @name = name
+  def initialize(vec2, height, width)
     @origin = vec2
     @height = height
     @width = width

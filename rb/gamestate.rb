@@ -11,6 +11,13 @@ class GameState
     nil
   end
 
+  def load
+    debug("Loading objects...")
+    File.open(map("#{@map_name}"),"rb") do |file|
+      @objects = Marshal.load(file)
+    end
+  end
+
   def update
     @objects.each do |object|
       object.update

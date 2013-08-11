@@ -15,7 +15,9 @@ require code("misc")
 require code("box2d")
 require code("vector2")
 require code("block")
+require code("editorobject")
 
+require code("editor")
 require code("level1")
 
 class GameWindow < Gosu::Window
@@ -26,8 +28,10 @@ class GameWindow < Gosu::Window
     self.caption = "God Must Answer - v#{VERSION}"
     @gamestates = Array.new
     @current_state = 0
+    editor = Editor.new
     debug_room = Level1.new
 
+    @gamestates.push(editor)
     @gamestates.push(debug_room)
   end
   
