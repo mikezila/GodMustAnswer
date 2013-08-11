@@ -1,12 +1,15 @@
 class GameObject
 
-  attr_reader :tags, :game, :box
+  attr_reader :tags, :game, :box, :origin, :x, :y
 
   def initialize(game)
     @game = game
-    @box = nil
     @tags = Array.new
     @deleted = false
+  end
+
+  def calc_box
+    @box = Box2D.new(@origin,@gfx.height,@gfx.width)
   end
 
   def add_tag(tag)
@@ -30,7 +33,7 @@ class GameObject
   end
 
   def update
-    self.box.update if self.box
+    self.box.update(@origin)
   end
 
   def draw

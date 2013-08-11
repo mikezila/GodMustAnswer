@@ -11,10 +11,19 @@ class GameState
     nil
   end
 
-  def load
+def load(name)
     debug("Loading objects...")
-    File.open(map("#{@map_name}"),"rb") do |file|
-      @objects = Marshal.load(file)
+    @objects.clear
+    raw_objects = Array.new
+
+    File.open(map("#{name}"),"rb") do |file|
+      raw_objects = Marshal.load(file)
+    end
+
+    raw_objects.each do |raw|
+      if raw.type == "block"
+        @objects.push(Block.new(self,raw.origin))
+      end
     end
   end
 

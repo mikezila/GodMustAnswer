@@ -1,9 +1,9 @@
 class Mob < GameObject
-  def initialize(x,y)
-    super
-    self.tags.push("mob")
+  def initialize(game, origin)
+    super game
     @move_speed = 1
-    @x = @y = 0
+    @x = origin.x
+    @y = origin.y
   end
 
   def move_left
@@ -20,10 +20,5 @@ class Mob < GameObject
 
   def move_up
     @y -= 1 * @move_speed
-  end
-
-  def warp(x,y)
-    @x = x
-    @y = y
   end
 end

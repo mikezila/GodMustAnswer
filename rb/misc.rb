@@ -1,7 +1,7 @@
 #Misc classes/helping hands
 
 DEBUG = true
-VERSION = 0.0
+VERSION = 0.3
 
 module Zorder
   Dev = 99

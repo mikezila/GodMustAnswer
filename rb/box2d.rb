@@ -1,14 +1,21 @@
 class Box2D
 
   attr_reader :origin, :height, :width
+  attr_accessor :highlight
 
   def initialize(vec2, height, width)
     @origin = vec2
+    @highlight = false
     @height = height
     @width = width
     @x = vec2.x
     @y = vec2.y
     @points = Array.new
+    self.calc_points
+  end
+
+  def update(origin)
+    @origin = origin
     self.calc_points
   end
 
@@ -22,10 +29,6 @@ class Box2D
 
     # Put those points in an array, so we can get them later in one neat package.
     @points.push(@origin,@v2,@v3,@v4)
-  end
-
-  def update
-    self.calc_points
   end
 
   def collides?(other)
@@ -49,6 +52,7 @@ class Box2D
   # Lines are drawn to points seemingly out-of-order so that we get a box instead of a Z
   def debug_draw
     color = Gosu::Color::RED
+    color = Gosu::Color::GREEN if @highlight
     $window.draw_line(self.origin.x,self.origin.y,color,@v2.x,@v2.y,color,Zorder::Dev)
     $window.draw_line(@v2.x,@v2.y,color,@v4.x,@v4.y,color,Zorder::Dev)
     $window.draw_line(@v4.x,@v4.y,color,@v3.x,@v3.y,color,Zorder::Dev)

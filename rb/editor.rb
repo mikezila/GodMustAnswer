@@ -3,6 +3,7 @@ class Editor < GameState
     super
     @gfx = Gosu::Image.new($window,gfx("block"),false)
     @raw_objects = Array.new
+    @map_name = "editor"
   end
 
   def button_down(id)
@@ -37,26 +38,9 @@ class Editor < GameState
     end
 
     debug("Saving objects...")
-    File.open(map("editor"),"wb") do |file|
+    File.open(map("#{@map_name}"),"wb") do |file|
       Marshal.dump(raw_objects, file)
     end
-  end
-
-  def load
-    debug("Loading objects...")
-    @objects.clear
-    @raw_objects.clear
-
-    File.open(map("editor"),"rb") do |file|
-      @raw_objects = Marshal.load(file)
-    end
-
-    @raw_objects.each do |raw|
-      if raw.type == "block"
-        @objects.push(Block.new(self,raw.origin))
-      end
-    end
-
   end
 
   def update

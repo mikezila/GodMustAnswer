@@ -1,6 +1,6 @@
 class Block < GameObject
 
-  def initialize(game,origin)
+  def initialize(game, origin)
     super game
     @origin = origin
     self.tags.push("block")
@@ -8,12 +8,13 @@ class Block < GameObject
     self.calc_box
   end
 
-  def calc_box
-    @box = Box2D.new(@origin,@gfx.height,@gfx.width)
-  end
-
   def update
     super
+    if self.box.collides?(self.game.player.box)
+      self.box.highlight = true
+    else
+      self.box.highlight = false
+    end
   end
 
   def draw

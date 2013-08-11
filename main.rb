@@ -1,4 +1,4 @@
-# The tower of heaven lie in ruin.  Yet still you climb.
+# The tower of heaven lay in ruin.  Yet still you climb.
 # Such defiance.  You seek the truth.  God Must Answer.
 
 require 'gosu'
@@ -16,6 +16,8 @@ require code("box2d")
 require code("vector2")
 require code("block")
 require code("editorobject")
+require code("static_bg")
+require code("ball")
 
 require code("editor")
 require code("level1")
@@ -28,10 +30,10 @@ class GameWindow < Gosu::Window
     self.caption = "God Must Answer - v#{VERSION}"
     @gamestates = Array.new
     @current_state = 0
-    editor = Editor.new
+    #editor = Editor.new
     debug_room = Level1.new
 
-    @gamestates.push(editor)
+    #@gamestates.push(editor)
     @gamestates.push(debug_room)
   end
   
