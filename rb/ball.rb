@@ -24,8 +24,7 @@ class Ball < Mob # < GameObject
     @jumping
   end
 
-  # I don't like this.  Using a single "foot" point is a bad idea.
-  # Maybe two will work better?
+  # This is messy I think.
   def check_col
     # Clean up from last run, so collision detection can begin anew.
     cannidates = Array.new
@@ -40,6 +39,7 @@ class Ball < Mob # < GameObject
 
     # Check to see if we're standing on any of them.
     cannidates.each do |cannidate|
+      # Holy moley.
       if self.box.left_foot.x > cannidate.box.origin.x and self.box.left_foot.x < cannidate.box.origin.x + cannidate.box.width or self.box.right_foot.x < cannidate.box.origin.x + cannidate.box.width and self.box.right_foot.x > cannidate.box.origin.x
         @grounded = true
         debug("grounded")
@@ -52,7 +52,8 @@ class Ball < Mob # < GameObject
   end
 
   def gravity
-    self.move_down unless self.y + self.box.height == $window.height
+    # for now gravity has a crude built-in check to make sure we don't fall off the screen.
+    self.move_down unless self.y + self.box.height >= $window.height
   end
 
   def draw
