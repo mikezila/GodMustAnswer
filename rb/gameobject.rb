@@ -12,10 +12,6 @@ class GameObject
     Box2D.new(@origin, @gfx.height, @gfx.width)
   end
 
-  def add_tag(tag)
-    self.tags.push(tag)
-  end
-
   def type
     self.tags[0]
   end

@@ -12,13 +12,33 @@ class Ball < Mob # < GameObject
 
   def update
     super
+    self.gravity unless self.grounded? or self.jumping?
     @origin = Vector2.new(@x,@y)
     @box.update(@origin)
-    self.gravity unless self.grounded? or self.jumping?
+    self.check_col
   end
 
   def jumping?
     @jumping
+  end
+
+  def check_col
+    cannidates = Array.new
+    cannidates.clear
+    @grounded = false
+
+    self.game.objects.each do |object|
+      if self.box.collides?(object.box)
+        cannidates.push(object)
+      end
+    end
+
+    cannidates.each do |cannidate|
+      if self.box.feet.x > cannidate.box.origin.x and self.box.feet.x < cannidate.box.origin.x + cannidate.box.width
+        @grounded = true
+        debug("grounded")
+      end
+    end
   end
 
   def grounded?
@@ -27,7 +47,6 @@ class Ball < Mob # < GameObject
 
   def gravity
     self.move_down unless self.y + self.box.height == $window.height
-    self.box.update(@origin)
   end
 
   def draw

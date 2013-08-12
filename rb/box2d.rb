@@ -1,6 +1,6 @@
 class Box2D
 
-  attr_reader :origin, :height, :width
+  attr_reader :origin, :feet, :height, :width
   attr_accessor :highlight
 
   def initialize(vec2, height, width)
@@ -10,6 +10,7 @@ class Box2D
     @width = width
     @x = vec2.x
     @y = vec2.y
+    @feet = nil
     self.calc_points
   end
 
@@ -25,6 +26,8 @@ class Box2D
     @v2 = Vector2.new(self.origin.x + self.width, self.origin.y)
     @v3 = Vector2.new(self.origin.x, self.origin.y + self.height)
     @v4 = Vector2.new(self.origin.x + width, self.origin.y + self.height)
+    # Feet is a reference point for the center of the box'x bottom edge, a small "tail" is drawn on it pointing down
+    @feet = Vector2.new(@v3.x + (Vector2.distance(@v3,@v4)/2), @v3.y)
   end
 
   def collides?(other) # Other should be another Box2D object
@@ -49,5 +52,6 @@ class Box2D
     $window.draw_line(@v2.x,@v2.y,color,@v4.x,@v4.y,color,Zorder::Dev)
     $window.draw_line(@v4.x,@v4.y,color,@v3.x,@v3.y,color,Zorder::Dev)
     $window.draw_line(@v3.x,@v3.y,color,self.origin.x,self.origin.y,color,Zorder::Dev)
+    $window.draw_line(@feet.x,@feet.y,color,@feet.x,@feet.y+5,color,Zorder::Dev)
   end
 end
