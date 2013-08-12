@@ -1,3 +1,5 @@
+# This is a prototype/scratchpad for the player, just a ball to move around to work on collisions.
+
 class Ball < Mob # < GameObject
 
   attr_accessor :jumping
@@ -22,6 +24,8 @@ class Ball < Mob # < GameObject
     @jumping
   end
 
+  # I don't like this.  Using a single "foot" point is a bad idea.
+  # Maybe two will work better?
   def check_col
     cannidates = Array.new
     cannidates.clear
@@ -34,7 +38,7 @@ class Ball < Mob # < GameObject
     end
 
     cannidates.each do |cannidate|
-      if self.box.feet.x > cannidate.box.origin.x and self.box.feet.x < cannidate.box.origin.x + cannidate.box.width
+      if self.box.left_foot.x > cannidate.box.origin.x or self.box.right_foot.x < cannidate.box.origin.x + cannidate.box.width
         @grounded = true
         debug("grounded")
       end
