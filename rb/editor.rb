@@ -1,14 +1,30 @@
 class Editor < GameState
   def initialize
     super
-    @gfx = Gosu::Image.new($window,gfx("block"),false)
+    @bg = StaticBG.new
+    @gfx = Array.new
+    block = Gosu::Image.new($window,gfx("block"),false)
+    door = Gosu::Image.new($window,gfx("door"),false)
+    spike = Gosu::Image.new($window,gfx("spike"),false)
+    gblock = Gosu::Image.new($window,gfx("gblock"),false)
+    @gfx.push(block,gblock,door,spike)
     @raw_objects = Array.new
     @map_name = "editor"
+    @selected = 0
+  end
+
+  def button_up(id)
+    nil
   end
 
   def button_down(id)
     if id == Gosu::MsLeft
       self.place
+    end
+    if id == Gosu::MsWheelUp
+      @selected += 1 unless @selected == @gfx.length - 1
+    elsif id == Gosu::MsWheelDown
+      @selected -= 1 unless @selected == 0
     end
     if id == Gosu::KbBackspace
       self.undo
@@ -23,7 +39,17 @@ class Editor < GameState
 
   def place
     spot = Vector2.new($window.mouse_x,$window.mouse_y)
-    @objects.push(Block.new(self,spot))
+    
+    case @selected
+    when 0
+      @objects.push(Block.new(self,spot))
+    when 1
+      @objects.push(GBlock.new(self,spot))
+    when 2
+      @objects.push(Door.new(self,spot))
+    when 3
+      @objects.push(Spike.new(self,spot))
+    end
   end
 
   def undo
@@ -45,10 +71,12 @@ class Editor < GameState
 
   def update
     super
+    @bg.update
   end
 
   def draw
     super
-    @gfx.draw($window.mouse_x,$window.mouse_y,Zorder::Dev)
+    @bg.draw
+    @gfx[@selected].draw($window.mouse_x,$window.mouse_y,Zorder::Dev)
   end
 end

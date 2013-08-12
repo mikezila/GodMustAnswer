@@ -8,6 +8,7 @@ def code(name)
 end
 
 require code("gameobject")
+require code("staticobject")
 require code("gamestate")
 require code("mob")
 require code("player")
@@ -16,11 +17,19 @@ require code("box2d")
 require code("vector2")
 require code("block")
 require code("editorobject")
-require code("static_bg")
+require code("staticbg")
 require code("ball")
+require code("door")
+require code("spike")
+require code("gblock")
 
 require code("editor")
 require code("level1")
+require code("level2")
+
+DEBUG = true
+EDITOR = false
+VERSION = 0.5
 
 class GameWindow < Gosu::Window
   def initialize
@@ -29,11 +38,9 @@ class GameWindow < Gosu::Window
 
     @gamestates = Array.new
     @current_state = 0
-    #editor = Editor.new
-    debug_room = Level1.new
 
-    #@gamestates.push(editor)
-    @gamestates.push(debug_room)
+    @gamestates.push(Level2.new)
+
   end
   
   def needs_cursor?

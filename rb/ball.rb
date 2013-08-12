@@ -37,12 +37,14 @@ class Ball < Mob # < GameObject
       end
     end
 
-    # Check to see if we're standing on any of them.
+    # Deal with our lucky winners and see what's what.
     cannidates.each do |cannidate|
+      
+      # Are one of our feet between the cannidates left and right bounds?
       # Holy moley.
       if self.box.left_foot.x > cannidate.box.origin.x and self.box.left_foot.x < cannidate.box.origin.x + cannidate.box.width or self.box.right_foot.x < cannidate.box.origin.x + cannidate.box.width and self.box.right_foot.x > cannidate.box.origin.x
         @grounded = true
-        debug("grounded")
+        debug("Grounded. Feet Y: #{self.box.left_foot.y} Boxtop Y: #{cannidate.box.origin.y}")
       end
     end
   end

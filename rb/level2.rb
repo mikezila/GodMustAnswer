@@ -1,7 +1,7 @@
-class Level1 < GameState
+class Level2 < GameState
   def initialize
     super
-    self.load("map1")
+    self.load("map2")
     @bg = StaticBG.new
     @player = Ball.new(self, Vector2.new(120,300))
   end

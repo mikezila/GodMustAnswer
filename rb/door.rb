@@ -1,9 +1,9 @@
-class Block < StaticObject # < GameObject
+class Door < StaticObject # < GameObject
 
   def initialize(game, origin)
     super game, origin
-    self.tags.push("block","solid")
-    @gfx = Gosu::Image.new($window,gfx("block"),false)
+    self.tags.push("door")
+    @gfx = Gosu::Image.new($window,gfx("door"),false)
     @box = generate_box
   end
 

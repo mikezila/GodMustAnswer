@@ -1,4 +1,4 @@
-class Static_BG
+class StaticBG
   def initialize
     @gfx = Gosu::Image.new($window, gfx("static_bg"), true)
   end
