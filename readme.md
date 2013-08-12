@@ -25,7 +25,9 @@ I aim to create at least another 11 levels to match the original game's length, 
 
 ## How do I run it?
 Right now the code is very much in flux, so it's unlikely to do anything in it's current state for you.  Though when it's ready all you'll need to do is run main.rb with Ruby.  The only requirement is the Gosu gem.  If you don't have it, just do...
-     gem install gosu
+
+    gem install gosu
+
 ...and it'll be installed for you.  This can get a little hairy depending on what platform you're on.  On Windows you must use Ruby 1.9.3, as Gosu's support for Ruby 2.0 doesn't work on Windows yet.
 
 It's very unlikely that you'll see any benefit to running it right now if you don't already know how to run Ruby anyway.  Just wait and once it's ready an .exe will be provided.
