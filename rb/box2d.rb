@@ -26,11 +26,13 @@ class Box2D
     @v2 = Vector2.new(self.origin.x + self.width, self.origin.y)
     @v3 = Vector2.new(self.origin.x, self.origin.y + self.height)
     @v4 = Vector2.new(self.origin.x + width, self.origin.y + self.height)
-    # Feet is a reference point for the center of the box'x bottom edge, a small "tail" is drawn on it pointing down
+    # These two are 1/3 and 2/3 along the bottom of the box, "feet".
+    # They way they're calculated is kind of ugly to look at, but works.
     @left_foot = Vector2.new(@v3.x + (Vector2.distance(@v3,@v4)/3), @v3.y)
     @right_foot = Vector2.new(@v3.x + ((Vector2.distance(@v3,@v4)/3)*2), @v3.y)
   end
 
+  # Adapted to 2D from 3D from bestguigui's "fps" prototype
   def collides?(other) # Other should be another Box2D object
     if (other.origin.x >= self.origin.x + self.width) # to the right
       return false
@@ -45,6 +47,7 @@ class Box2D
     end   
   end
 
+  # Draw some debug lines so we can see the boxes and some references.
   # Lines are drawn to points seemingly out-of-order so that we get a box instead of a Z
   def draw
     color = Gosu::Color::RED
