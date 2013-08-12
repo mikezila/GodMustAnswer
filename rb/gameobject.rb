@@ -8,16 +8,12 @@ class GameObject
     @deleted = false
   end
 
-  def calc_box
-    @box = Box2D.new(@origin,@gfx.height,@gfx.width)
+  def generate_box
+    Box2D.new(@origin, @gfx.height, @gfx.width)
   end
 
   def add_tag(tag)
     self.tags.push(tag)
-  end
-
-  def origin
-    self.box.origin
   end
 
   def type
@@ -33,10 +29,8 @@ class GameObject
   end
 
   def update
-    self.box.update(@origin)
   end
 
   def draw
-    self.box.draw if self.box
   end
 end

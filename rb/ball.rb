@@ -1,45 +1,38 @@
 class Ball < Mob # < GameObject
 
+  attr_accessor :jumping
+
   def initialize(game,origin)
     super game, origin
-    @origin = origin
-    @grounded = false
-    @x = origin.x
-    @y = origin.y
+    @jumping = @grounded = false
     self.tags.push("ball")
     @gfx = Gosu::Image.new($window, gfx("ball"), false)
-    self.calc_box
+    @box = generate_box
   end
 
   def update
     super
     @origin = Vector2.new(@x,@y)
     @box.update(@origin)
-    self.gravity unless self.grounded?
+    self.gravity unless self.grounded? or self.jumping?
+  end
+
+  def jumping?
+    @jumping
   end
 
   def grounded?
-    self.game.objects.each do |object|
-      if self.box.collides?(object.box)
-        self.box.highlight = true
-        if self.box.origin.y < object.box.origin.y or self.box.origin.y + self.box.width < object.box.origin.y 
-          return true
-          break
-        end
-      else
-        self.box.highlight = false
-        return false
-      end
-    end
+    @grounded
   end
 
   def gravity
-    self.calc_box
     self.move_down unless self.y + self.box.height == $window.height
+    self.box.update(@origin)
   end
 
   def draw
     super
     @gfx.draw(@x,@y,Zorder::Mob)
+    @box.draw if DEBUG
   end
 end

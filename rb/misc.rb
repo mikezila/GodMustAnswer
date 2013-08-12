@@ -1,6 +1,6 @@
 #Misc classes/helping hands
 
-DEBUG = true
+DEBUG = false
 VERSION = 0.3
 
 module Zorder

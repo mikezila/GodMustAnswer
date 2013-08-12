@@ -5,7 +5,7 @@ class Block < GameObject
     @origin = origin
     self.tags.push("block")
     @gfx = Gosu::Image.new($window,gfx("block"),false)
-    self.calc_box
+    @box = generate_box
   end
 
   def update
@@ -20,5 +20,6 @@ class Block < GameObject
   def draw
     super
     @gfx.draw(@origin.x,@origin.y,Zorder::Block)
+    self.box.draw if DEBUG
   end
 end

@@ -27,7 +27,6 @@ class GameWindow < Gosu::Window
     super 640,480,false
     $window = self
 
-    self.caption = "God Must Answer - v#{VERSION}"
     @gamestates = Array.new
     @current_state = 0
     #editor = Editor.new
@@ -41,6 +40,10 @@ class GameWindow < Gosu::Window
     true
   end
   
+  def button_up(id)
+    @gamestates[@current_state].button_up(id)
+  end
+
   def button_down(id)
     if id == Gosu::KbEscape
       self.close
@@ -50,6 +53,7 @@ class GameWindow < Gosu::Window
   end
 
   def update
+    self.caption = "God Must Answer - v#{VERSION} - FPS: #{Gosu::fps}"
     @gamestates[@current_state].update
   end
   

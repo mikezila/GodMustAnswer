@@ -4,7 +4,6 @@ class GameState
 
   def initialize
     @objects = Array.new
-    @player = nil
   end
 
   def button_down(id)
