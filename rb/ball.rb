@@ -60,7 +60,7 @@ class Ball < Mob # < GameObject
 
   def draw
     super
-    @gfx.draw(@x,@y,Zorder::Mob)
+    @gfx.draw(@box.origin.x,@box.origin.y,Zorder::Mob)
     @box.draw if DEBUG
   end
 end
