@@ -10,22 +10,24 @@ class Ball < Mob # < GameObject
     self.tags.push("ball")
     @gfx = Gosu::Image.new($window, gfx("ball"), false)
     @box = generate_box
+    @move_speed = 2
+  end
+
+  def generate_box
+    origin = Vector2.new(@origin.x - 1, @origin.y - 1)
+    Box2D.new(origin, @gfx.height+1, @gfx.width+1)
   end
 
   def update
-    super
-    self.gravity unless self.grounded? or self.jumping?
-    @origin = Vector2.new(@x,@y)
-    @box.update(@origin)
-    self.check_col
-  end
-
-  def jumping?
-    @jumping
+    self.box.update
+    @move_speed.times do
+      self.physics
+      self.gravity
+    end
   end
 
   # This is messy I think.
-  def check_col
+  def physics
     # Clean up from last run, so collision detection can begin anew.
     cannidates = Array.new
     @grounded = false
@@ -49,17 +51,14 @@ class Ball < Mob # < GameObject
     end
   end
 
-  def grounded?
-    @grounded
-  end
-
   def gravity
-    # for now gravity has a crude built-in check to make sure we don't fall off the screen.
-    self.move_down unless self.y + self.box.height >= $window.height
+    unless @grounded or @jumping
+      debug("gravity happening")
+      self.box.origin.y += 1
+    end
   end
 
   def draw
-    super
     @gfx.draw(@box.origin.x,@box.origin.y,Zorder::Mob)
     @box.draw if DEBUG
   end

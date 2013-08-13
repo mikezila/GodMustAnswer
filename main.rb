@@ -40,7 +40,6 @@ class GameWindow < Gosu::Window
     @current_state = 0
 
     @gamestates.push(Level2.new)
-
   end
   
   def needs_cursor?

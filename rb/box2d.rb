@@ -1,21 +1,17 @@
 class Box2D
 
-  attr_reader :origin, :left_foot, :right_foot, :height, :width
-  attr_accessor :highlight
+  attr_reader :left_foot, :right_foot, :height, :width
+  attr_accessor :origin, :highlight
 
   def initialize(vec2, height, width)
     @origin = vec2
     @highlight = false
     @height = height
     @width = width
-    @x = vec2.x
-    @y = vec2.y
-    @feet = nil
     self.calc_points
   end
 
-  def update(origin)
-    @origin = origin
+  def update
     self.calc_points
   end
 
