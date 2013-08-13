@@ -10,7 +10,7 @@ class GameState
     nil
   end
 
-def load(name)
+  def load(name)
     debug("Loading objects...")
     @objects.clear
     raw_objects = Array.new

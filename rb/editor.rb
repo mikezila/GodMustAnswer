@@ -12,6 +12,8 @@ class Editor < GameState
     @raw_objects = Array.new
     @map_name = "editor"
     @selected = 0
+    @camera_y = @camera_x = 0
+    @camera_step = 25
   end
 
   def button_up(id)
@@ -36,10 +38,23 @@ class Editor < GameState
     if id == Gosu::KbP
       self.load(@map_name)
     end
+
+    # Editor "camera" controls.
+    if id == Gosu::KbRight
+      @camera_x += @camera_step
+    elsif id == Gosu::KbLeft
+      @camera_x -= @camera_step
+    elsif id == Gosu::KbUp
+      @camera_y -= @camera_step
+    elsif id == Gosu::KbDown
+      @camera_y += @camera_step
+    end
+        
   end
 
   def place
-    spot = Vector2.new($window.mouse_x,$window.mouse_y)
+    # This takes the camera position into account.
+    spot = Vector2.new($window.mouse_x + @camera_x, $window.mouse_y + @camera_y)
     
     case @selected
     when 0
@@ -78,7 +93,9 @@ class Editor < GameState
   end
 
   def draw
-    super
+    $window.translate(-@camera_x, -@camera_y) do
+      super
+    end
     @bg.draw
     @gfx[@selected].draw($window.mouse_x,$window.mouse_y,Zorder::Dev)
   end
