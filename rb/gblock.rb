@@ -3,7 +3,7 @@ class GBlock < StaticObject # < GameObject
   def initialize(game, origin)
     super game, origin
     @type = "gblock"
-    @tags.push("solid")
+    @tags.push("solid","kill")
     @gfx = Gosu::Image.new($window,gfx("gblock"),false)
     @box = generate_box
   end
