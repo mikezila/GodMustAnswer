@@ -33,6 +33,8 @@ def load(name)
       when "spike"
         @objects.push(Spike.new(self,raw.origin))
         debug("spike found")
+      when "blockaddon"
+        @objects.push(BlockAddon.new(self,raw.origin))
       end
     end
   end

@@ -1,25 +1,33 @@
 class Mob < GameObject
   def initialize(game, origin)
     super game
-    @move_speed = 1
+    @move_speed = 3
     @origin = origin
     @x = origin.x
     @y = origin.y
   end
 
   def move_left
-    @box.origin.x -= 1
+    @move_speed.times do
+      @box.origin.x -= 1
+    end
   end
 
   def move_right
-    @box.origin.x += 1
+    @move_speed.times do
+      @box.origin.x += 1
+    end
   end
 
   def move_down
-    @box.origin.y += 1
+    @move_speed.times do
+      @box.origin.y += 1
+    end
   end
 
   def move_up
-    @box.origin.y -= 1
+    @move_speed.times do
+      @box.origin.y -= 1
+    end
   end
 end

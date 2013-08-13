@@ -7,7 +7,8 @@ class Editor < GameState
     door = Gosu::Image.new($window,gfx("door"),false)
     spike = Gosu::Image.new($window,gfx("spike"),false)
     gblock = Gosu::Image.new($window,gfx("gblock"),false)
-    @gfx.push(block,gblock,door,spike)
+    blocka = Gosu::Image.new($window,gfx("blockaddon"),false)
+    @gfx.push(block,gblock,door,spike,blocka)
     @raw_objects = Array.new
     @map_name = "editor"
     @selected = 0
@@ -33,7 +34,7 @@ class Editor < GameState
       self.save
     end
     if id == Gosu::KbP
-      self.load
+      self.load(@map_name)
     end
   end
 
@@ -49,6 +50,8 @@ class Editor < GameState
       @objects.push(Door.new(self,spot))
     when 3
       @objects.push(Spike.new(self,spot))
+    when 4
+      @objects.push(BlockAddon.new(self,spot))
     end
   end
 

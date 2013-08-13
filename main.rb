@@ -27,7 +27,10 @@ require code("editor")
 require code("level1")
 require code("level2")
 
-DEBUG = false
+# If DEBUG is on wireframes will be drawn for all Box2D physics boxes, along with reminder lines showing where various "hotspots" are on the player.
+# If EDITOR is not true, the level editor will crash.  Having EDITOR on turns off the checking for collision with the player.  Since there is no player in the level editor.
+
+DEBUG = true
 EDITOR = false
 VERSION = 0.5
 

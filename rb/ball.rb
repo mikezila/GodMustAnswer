@@ -7,10 +7,9 @@ class Ball < Mob # < GameObject
   def initialize(game,origin)
     super game, origin
     @jumping = @grounded = @block_left = @block_right = @block_above = false
-    self.tags.push("ball")
     @gfx = Gosu::Image.new($window, gfx("ball"), false)
     @box = generate_box
-    @gravity_factor = 2
+    @gravity_factor = 3
   end
 
   def update
@@ -35,6 +34,14 @@ class Ball < Mob # < GameObject
     # Find all the objects we're touching, so we can work with them instead of every gameobject.
     self.game.objects.each do |object|
       if self.box.collides?(object.box)
+        
+        # Check all the objects we're touching for tags we care about
+        if object.tags.include? "kill"
+          self.die
+        elsif object.tags.include? "goal"
+          self.at_goal
+        end
+          
         cannidates.push(object)
       end
     end
@@ -45,15 +52,24 @@ class Ball < Mob # < GameObject
       # Are one of our feet between the cannidates left and right bounds?
       # Holy moley.
       if self.box.left_foot.x > cannidate.box.origin.x and self.box.left_foot.x < cannidate.box.origin.x + cannidate.box.width or self.box.right_foot.x < cannidate.box.origin.x + cannidate.box.width and self.box.right_foot.x > cannidate.box.origin.x
-        @grounded = true
-        debug("Grounded. Feet Y: #{self.box.left_foot.y} Boxtop Y: #{cannidate.box.origin.y}")
+        if cannidate.tags.include? "solid" 
+          @grounded = true
+          debug("Grounded. Feet Y: #{self.box.left_foot.y} Boxtop Y: #{cannidate.box.origin.y}")
+        end
       end
     end
   end
 
+  def die
+    debug("Hit deadly object")
+  end
+
+  def at_goal
+    debug("Touching the goal")
+  end
+
   def gravity
     unless @grounded or @jumping or self.box.origin.y + self.box.height > $window.height
-      debug("gravity happening")
       self.box.origin.y += 1
     end
   end
