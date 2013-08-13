@@ -10,20 +10,20 @@ class Ball < Mob # < GameObject
     self.tags.push("ball")
     @gfx = Gosu::Image.new($window, gfx("ball"), false)
     @box = generate_box
-    @move_speed = 2
-  end
-
-  def generate_box
-    origin = Vector2.new(@origin.x - 1, @origin.y - 1)
-    Box2D.new(origin, @gfx.height+1, @gfx.width+1)
+    @gravity_factor = 2
   end
 
   def update
     self.box.update
-    @move_speed.times do
+    @gravity_factor.times do
       self.physics
       self.gravity
     end
+  end
+
+  def generate_box
+    origin = Vector2.new(@origin.x-1,@origin.y-1)
+    Box2D.new(origin, @gfx.height+1, @gfx.width+1)
   end
 
   # This is messy I think.
@@ -52,7 +52,7 @@ class Ball < Mob # < GameObject
   end
 
   def gravity
-    unless @grounded or @jumping
+    unless @grounded or @jumping or self.box.origin.y + self.box.height > $window.height
       debug("gravity happening")
       self.box.origin.y += 1
     end

@@ -27,7 +27,7 @@ require code("editor")
 require code("level1")
 require code("level2")
 
-DEBUG = true
+DEBUG = false
 EDITOR = false
 VERSION = 0.5
 

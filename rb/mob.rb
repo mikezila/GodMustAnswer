@@ -8,18 +8,18 @@ class Mob < GameObject
   end
 
   def move_left
-    @box.origin.x -= 1 * @move_speed
+    @box.origin.x -= 1
   end
 
   def move_right
-    @box.origin.x += 1 * @move_speed
+    @box.origin.x += 1
   end
 
   def move_down
-    @box.origin.y += 1 * @move_speed
+    @box.origin.y += 1
   end
 
   def move_up
-    @box.origin.y -= 1 * @move_speed
+    @box.origin.y -= 1
   end
 end
