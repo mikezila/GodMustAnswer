@@ -3,6 +3,7 @@
 class Ball < Mob # < GameObject
 
   attr_accessor :jumping
+  attr_reader :grounded
 
   def initialize(game,origin)
     super game, origin
@@ -10,6 +11,8 @@ class Ball < Mob # < GameObject
     @gfx = Gosu::Image.new($window, gfx("ball"), false)
     @box = generate_box
     @gravity_factor = 3
+    @jump_height = 100
+    @current_jump = 0
   end
 
   def update
@@ -23,6 +26,15 @@ class Ball < Mob # < GameObject
   def generate_box
     origin = Vector2.new(@origin.x-1,@origin.y-1)
     Box2D.new(origin, @gfx.height+1, @gfx.width+1)
+  end
+
+  def jump
+    if @jumping
+      @jumping = false unless @current_jump < @jump_height
+      self.box.origin.y -= 3
+      @current_jump += 3
+      debug(@current_jump)
+    end
   end
 
   # This is messy I think.
@@ -54,6 +66,7 @@ class Ball < Mob # < GameObject
       if self.box.left_foot.x > cannidate.box.origin.x and self.box.left_foot.x < cannidate.box.origin.x + cannidate.box.width or self.box.right_foot.x < cannidate.box.origin.x + cannidate.box.width and self.box.right_foot.x > cannidate.box.origin.x
         if cannidate.tags.include? "solid" 
           @grounded = true
+          @current_jump = 0
           debug("Grounded. Feet Y: #{self.box.left_foot.y} Boxtop Y: #{cannidate.box.origin.y}")
         end
       end

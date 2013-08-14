@@ -1,8 +1,6 @@
 class Player < Mob # < GameObject
   def initialize
     super
-    @gravity = true
-    @max_jump_height = 30
   end
 
   def jump

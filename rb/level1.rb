@@ -8,7 +8,7 @@ class Level1 < GameState
 
   def button_down(id)
     if id == Gosu::KbSpace
-      @player.jumping = true
+      @player.jumping = true if @player.grounded == true
     end
   end
 
@@ -24,7 +24,7 @@ class Level1 < GameState
     @player.update
 
     if $window.button_down?(Gosu::KbSpace)
-      @player.move_up
+      @player.jump
     end
     if $window.button_down?(Gosu::KbLeft)
       @player.move_left

@@ -24,7 +24,7 @@ class Level2 < GameState
     @player.update
 
     if $window.button_down?(Gosu::KbSpace)
-      @player.move_up
+      @player.jump
     end
     if $window.button_down?(Gosu::KbLeft)
       @player.move_left

@@ -31,7 +31,7 @@ require code("level2")
 # If EDITOR is not true, the level editor will crash.  Having EDITOR on turns off the checking for collision with the player.  Since there is no player in the level editor.
 
 DEBUG = true
-EDITOR = true
+EDITOR = false
 VERSION = 0.5
 
 class GameWindow < Gosu::Window
@@ -42,7 +42,7 @@ class GameWindow < Gosu::Window
     @gamestates = Array.new
     @current_state = 0
 
-    @gamestates.push(Editor.new)
+    @gamestates.push(Level1.new)
   end
   
   def needs_cursor?
