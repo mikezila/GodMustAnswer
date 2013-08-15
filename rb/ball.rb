@@ -8,10 +8,10 @@ class Ball < Mob # < GameObject
   def initialize(game,origin)
     super game, origin
     @jumping = @grounded = @block_left = @block_right = @block_above = false
-    @gfx = Gosu::Image.new($window, gfx("ball"), false)
+    @gfx = Gosu::Image.load_tiles($window, gfx("eid"), 60, 88, false)
     @box = generate_box
-    @gravity_factor = 3
-    @jump_height = 100
+    @gravity_factor = 4
+    @jump_height = 155
     @current_jump = 0
   end
 
@@ -25,14 +25,14 @@ class Ball < Mob # < GameObject
 
   def generate_box
     origin = Vector2.new(@origin.x-1,@origin.y-1)
-    Box2D.new(origin, @gfx.height+1, @gfx.width+1)
+    Box2D.new(origin, @gfx[0].height+1, @gfx[0].width+1)
   end
 
   def jump
     if @jumping
       @jumping = false unless @current_jump < @jump_height
-      self.box.origin.y -= 3
-      @current_jump += 3
+      self.box.origin.y -= 5
+      @current_jump += 5
       debug(@current_jump)
     end
   end
@@ -88,7 +88,7 @@ class Ball < Mob # < GameObject
   end
 
   def draw
-    @gfx.draw(@box.origin.x,@box.origin.y,Zorder::Mob)
+    @gfx[0].draw(@box.origin.x,@box.origin.y,Zorder::Mob)
     @box.draw if DEBUG
   end
 end
