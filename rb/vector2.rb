@@ -5,6 +5,11 @@ class Vector2
   def initialize(x,y)
     @x = x
     @y = y
+    name = "unnamed"
+  end
+
+  def set_name(new_name)
+    name = new_name
   end
 
   # This wraps Gosu's distance calculator to accept Vector2
